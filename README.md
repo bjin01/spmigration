@@ -15,6 +15,10 @@ Which scenarios are covered by the scripts:
 If __`-x`__ is not specified the SP Migration is always a **dryRun**.
 Check Job status of the system if dryrun was successful before run the above command with -x specified.
 
+##Download and try it!##
+```git clone https://github.com/bjin01/spmigration```
+
+
 ###See here additional command arguments:###
 
 optional arguments:
