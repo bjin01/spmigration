@@ -1,4 +1,4 @@
-# spmigration
+# spmigration v0.1
 ### This is a commandline script for service pack migration in SUSE Manager v3.x. ###
 
 
