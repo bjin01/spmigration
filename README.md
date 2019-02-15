@@ -3,10 +3,10 @@
 
 Which scenarios are covered by the scripts:
 * enter your base channel label, target base channel label, the current sp version and target sp version. See spmigration.py -h
-*Then the script will use SUSE Manager API to get a list of all systems matching the base channel and query api to check if the systems have been marked as "inactive". Inactive systems will be pulled out from the systems list.
-*Then the script will take the matching list of systems and issue salt hostname test.ping to check if the system is only.
-*If salt test.ping is successful then a service pack migration **job** in SUSE Manager with the given target sp version will be created, for each single node.
-*A job ID will be returned.
+* Then the script will use SUSE Manager API to get a list of all systems matching the base channel and query api to check if the systems have been marked as "inactive". Inactive systems will be pulled out from the systems list.
+* Then the script will take the matching list of systems and issue salt hostname test.ping to check if the system is only.
+* If salt test.ping is successful then a service pack migration **job** in SUSE Manager with the given target sp version will be created, for each single node.
+* A job ID will be returned.
 
 **Sample command:**
 
