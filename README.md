@@ -25,7 +25,7 @@ optional arguments:
 
   -h, --help            show this help message and exit
   
-  -x, --execute_migration
+  -x, --execute_migration __THIS parameter is the real _fire_ button__ 
   
   
   -s SERVER, --server SERVER
