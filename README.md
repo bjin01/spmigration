@@ -26,12 +26,12 @@ optional arguments:
   
   -s SERVER, --server SERVER
   
-                        Enter your suse manager host address e.g. myserver.abd.domain
+ Enter your suse manager host address e.g. myserver.abd.domain
                         
                         
   -u USERNAME, --username USERNAME
   
-                        Enter your suse manager loginid e.g. admin
+ Enter your suse manager loginid e.g. admin
                         
                         
   -p [PASSWORD]         Enter your password
@@ -39,19 +39,19 @@ optional arguments:
   
   -base CURRENT_BASE_CHANNEL, --current_base_channel CURRENT_BASE_CHANNEL
   
-                        Enter the current base channel label. e.g. sles12-sp3-pool-x86_64
+  Enter the current base channel label. e.g. sles12-sp3-pool-x86_64
                         
                         
   -newbase NEW_BASE_CHANNEL, --new_base_channel NEW_BASE_CHANNEL
   
-                        Enter the new base channel label. e.g. sles12-sp4-pool-x86_64
+  Enter the new base channel label. e.g. sles12-sp4-pool-x86_64
                         
                         
   -fromsp MIGRATE_FROM_SERVICEPACK, --migrate_from_servicepack MIGRATE_FROM_SERVICEPACK
   
-                        Enter the current service pack version e.g. sp3 , of course you can jump from sp3 to sp5 as well.
+ Enter the current service pack version e.g. sp3 , of course you can jump from sp3 to sp5 as well.
                         
                         
   -tosp MIGRATE_TO_SERVICEPACK, --migrate_to_servicepack MIGRATE_TO_SERVICEPACK
   
-                        Enter the target service pack version e.g. sp4 , of course you can jump from sp3 to sp5 as well.
+ Enter the target service pack version e.g. sp4 , of course you can jump from sp3 to sp5 as well.
