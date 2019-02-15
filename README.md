@@ -25,7 +25,7 @@ optional arguments:
 
   -h, --help            show this help message and exit
   
-  -x, --execute_migration __THIS parameter is the real _fire_ button__ 
+  -x, --execute_migration __THIS parameter is the real _fire_ button__ :shipit:
   
   
   -s SERVER, --server SERVER
