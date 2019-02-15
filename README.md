@@ -1,5 +1,5 @@
 # spmigration
-### This scripts runs service pack migration for given base channel. ###
+### This is a commandline script for service pack migration in SUSE Manager v3.x. ###
 
 
 ### Motivation: ###
@@ -10,11 +10,11 @@ _This program should give you some ideas how a such task could be automated by u
 **I would appreciate any help, bug fixing, code optimization and testing feedbacks to me.**
 
 Which scenarios are covered by the scripts:
-* enter your base channel label, target base channel label, the current sp version and target sp version. See spmigration.py -h
-* Then the script will use SUSE Manager API to get a list of all systems matching the base channel and query api to check if the systems have been marked as "inactive". Inactive systems will be pulled out from the systems list.
-* Then the script will take the matching list of systems and issue salt hostname test.ping to check if the system is only.
-* If salt test.ping is successful then a service pack migration **job** in SUSE Manager with the given target sp version will be created, for each single node.
-* A job ID will be returned.
+* __Parameters:__ - enter your base channel label, target base channel label, the current sp version and target sp version. See spmigration.py -h
+* __Checking system availability prior Migration start__ - Then the script will use SUSE Manager API to get a list of all systems matching the base channel and query api to check if the systems have been marked as "inactive". Inactive systems will be pulled out from the systems list.
+* __Checking salt minion online status__ - Then the script will take the matching list of systems and issue salt hostname test.ping to check if the system is only.
+* __Avoid job creation for offline systems__ - If salt test.ping is successful then a service pack migration **job** in SUSE Manager with the given target sp version will be created, for each single node.
+* __Schedule Jobs in SUSE Manager__ - A job ID will be returned.
 
 ## Sample command: ##
 
