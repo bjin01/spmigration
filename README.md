@@ -9,7 +9,7 @@ _This program should give you some ideas how a such task could be automated by u
 
 **I would appreciate any help, bug fixing, code optimization and testing feedbacks to me.**
 
-#### Function Highlights:
+## Function Highlights:
 
 * __Parameters:__ - enter your base channel label, target base channel label, the current sp version and target sp version. See spmigration.py -h
 * __Checking system availability prior Migration start__ - Then the script will use SUSE Manager API to get a list of all systems matching the base channel and query api to check if the systems have been marked as "inactive". Inactive systems will be pulled out from the systems list.
