@@ -77,4 +77,8 @@ Check Job status of the system if dryrun was successful before run the above com
   
  Enter the target service pack version e.g. sp4 , of course you can jump from sp3 to sp5 as well.
  ```
- 
+ ## Enhancements for future version
+ * adding verbosity 
+ * make the number of upgradable packages adjustable as input parameter
+ * major coming feature: web interface for selecting the systems, channels and certain flags
+ * oh yes, maybe some documentation
