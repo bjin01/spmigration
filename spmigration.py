@@ -43,7 +43,6 @@ key = client.auth.login(MANAGER_LOGIN, MANAGER_PASSWORD)
 today = datetime.today()
 earliest_occurrence = xmlrpclib.DateTime(today)
 
-#print('lets see execute_migration value: %s'%(args.execute_migration))
 if args.execute_migration:
     dryRun = 0
 else:
@@ -62,7 +61,6 @@ new_sp = args.migrate_to_servicepack
 
 checksystems = checkactivesystems.checkInactives(client,  key,  args.username,  args.password)
 activesystems = checksystems.getactive_systems()
-#print(activesystems)
 
 mygroup = createGroup.myGroup(client, key)
 mygroup.newGroup()
@@ -74,7 +72,6 @@ for server in activesystems:
 
     for a in basech_name:
        if a['current_base'] == 1:
-            #print('%s: %s '%(server['name'], a['label']))
             L.append(a['name'])
             getoptchannels = newoptchannels.getnew_optionalChannels(client, key, s)
             optionalChannels = getoptchannels.find_replace(previous_sp, new_sp)
@@ -89,7 +86,6 @@ for server in activesystems:
                         spjob = client.system.scheduleSPMigration(key, s,  new_base_channel,  optionalChannels,  dryRun,  earliest_occurrence)
                         print('A new job has been scheduled with id: %d' %(spjob))
                         migrationsystems.append(s)
-                        #print('the migrationsystems has: ',  migrationsystems)
                     except:
                         print('something went wrong with system while scheduling job with client.system.scheduleSPMigration %s'%(server['name']))
             elif a['label'] == base_channel:
@@ -98,4 +94,10 @@ for server in activesystems:
 if migrationsystems:
     mygroup.addSystemsToGroup(migrationsystems)
     print('Check systems and their scheduled jobs in web UI -> Systems -> System Groups -> spmigration_temp')
+else:
+    print('Obviously no system has been qualified for the service pack migration. This can have several reasons:\n\n')
+    print('\tThe systems don\'t have the base_channel you entered.')
+    print('\tThe systems are not online and or not reachable by salt test.ping')
+    print('\tThe systems have more than 3 upgradable packages.')
+    print('last but not least double check your target base channel and optional channels if they are available.')
 client.auth.logout(key)
