@@ -37,10 +37,9 @@ Check Job status of the system if dryrun was successful before run the above com
 ```git clone https://github.com/bjin01/spmigration```
 
 
-### See here additional command arguments: ###
+### See here for additional command arguments: ###
 
-optional arguments:
-
+  ```
   -h, --help            show this help message and exit
   
   -x, --execute_migration __THIS parameter is the real _fire_ button__ :shipit:
@@ -77,3 +76,5 @@ optional arguments:
   -tosp MIGRATE_TO_SERVICEPACK, --migrate_to_servicepack MIGRATE_TO_SERVICEPACK
   
  Enter the target service pack version e.g. sp4 , of course you can jump from sp3 to sp5 as well.
+ ```
+ 
