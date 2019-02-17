@@ -9,6 +9,15 @@ _This program should give you some ideas how a such task could be automated by u
 
 **I would appreciate any help, bug fixing, code optimization and testing feedbacks to me.**
 
+## Prerequisites:
+
+**- The channel label need to consist "-sp1" "-sp2" "-sp3" "-sp4" or "-GA" etc.**
+
+**- The script has been tested with Python 2.7.13 with SUSE Manager 3.2.4**
+
+**- The user you use must have permissions to create a group in the organization in which you run this script.**
+
+
 ## Function Highlights:
 
 * __Parameters:__ - enter your base channel label, target base channel label, the current sp version and target sp version. See spmigration.py -h
