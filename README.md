@@ -26,16 +26,19 @@ _This program should give you some ideas how a such task could be automated by u
 * __Avoid job creation for offline systems__ - If salt test.ping is successful then a service pack migration **job** in SUSE Manager with the given target sp version will be created, for each single node.
 * __Schedule Jobs in SUSE Manager__ - A job ID will be returned.
 
+
+## Download and try it! ##
+```git clone https://github.com/bjin01/spmigration```
+
+*__note:__ in order to run the python script and the depending modules you have to keep the subdirectory mymodules as it is and do not rename this subdirectory.*
+
+
 ## Sample command: ##
 
 ```suma:~/myscripts # python spmigration.py -s bjsuma.bo2go.home -u bjin -p suse1234 -base dev-sles12-sp3-pool-x86_64 -newbase dev-sles12-sp4-pool-x86_64 -fromsp sp3 -tosp sp4```
 
 If __`-x`__ is not specified the SP Migration is always a **dryRun**.
 Check Job status of the system if dryrun was successful before run the above command with -x specified.
-
-## Download and try it! ##
-```git clone https://github.com/bjin01/spmigration```
-
 
 ### See here for additional command arguments: ###
 
