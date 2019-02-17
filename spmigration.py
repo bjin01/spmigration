@@ -4,7 +4,8 @@ from mymodules import saltping
 from datetime import datetime
 from mymodules import checkactivesystems
 from mymodules import newoptchannels
-#from mymodules import sumalogin
+from mymodules import createGroup
+from mymodules import checkChannels
 
 class Password(argparse.Action):
     def __call__(self, parser, namespace, values, option_string):
@@ -49,14 +50,22 @@ else:
     dryRun = 1
 
 L = []
+migrationsystems = []
+vChannels = checkChannels.verifyChannels()
+bChannel = args.current_base_channel
+nChannel = args.new_base_channel
+base_channel = vChannels.Channels(client,key,bChannel)
+new_base_channel = vChannels.Channels(client,key,nChannel)
+
 previous_sp = args.migrate_from_servicepack
 new_sp = args.migrate_to_servicepack
-base_channel = args.current_base_channel
-new_base_channel = args.new_base_channel
 
 checksystems = checkactivesystems.checkInactives(client,  key,  args.username,  args.password)
 activesystems = checksystems.getactive_systems()
-print(activesystems)
+#print(activesystems)
+
+mygroup = createGroup.myGroup(client, key)
+mygroup.newGroup()
 
 for server in activesystems:
     s = server.get('id')
@@ -65,23 +74,28 @@ for server in activesystems:
 
     for a in basech_name:
        if a['current_base'] == 1:
-            print('%s: %s '%(server['name'], a['label']))
+            #print('%s: %s '%(server['name'], a['label']))
             L.append(a['name'])
             getoptchannels = newoptchannels.getnew_optionalChannels(client, key, s)
             optionalChannels = getoptchannels.find_replace(previous_sp, new_sp)
             if a['label'] == base_channel and len(availpkgs) <=3 :
+                print('%s has %d upgradable packages and is qualified for sp migration.' %( server['name'],  len(availpkgs)))
                 print('\nChecking system through salt %s test.ping: \n' %(server['name']))                
                 p1 = saltping.mysalt(server['name'])
                 p1.ping() 
-                #print('The server is not ready for salt: %s'%(server['name']))
-                #print('p1.code is: %d' %(p1.code))
                 if p1.code == 0:
                     try:
                         #print('lets see key, s, new_base_channel childchannels, dryRun',  key, s, new_base_channel, optionalChannels, dryRun)
                         spjob = client.system.scheduleSPMigration(key, s,  new_base_channel,  optionalChannels,  dryRun,  earliest_occurrence)
                         print('A new job has been scheduled with id: %d' %(spjob))
+                        migrationsystems.append(s)
+                        #print('the migrationsystems has: ',  migrationsystems)
                     except:
                         print('something went wrong with system while scheduling job with client.system.scheduleSPMigration %s'%(server['name']))
             elif a['label'] == base_channel:
                 print('\033[1;31;40m%s The system need to be updated prior SPMigration. It still has upgradable pkgs: %d \033[1;32;40m'%(server['name'], len(availpkgs)))
+
+if migrationsystems:
+    mygroup.addSystemsToGroup(migrationsystems)
+    print('Check systems and their scheduled jobs in web UI -> Systems -> System Groups -> spmigration_temp')
 client.auth.logout(key)
