@@ -11,7 +11,7 @@ _This program should give you some ideas how a such task could be automated by u
 
 ## Prerequisites:
 
-**- The channel label need to consist "-sp1" "-sp2" "-sp3" "-sp4" or "-GA" etc.**
+**- The channel label need to consist "-sp1" "-sp2" "-sp3" "-sp4" or "-ga" etc.**
 
 **- The script has been tested with Python 2.7.13 with SUSE Manager 3.2.4**
 
