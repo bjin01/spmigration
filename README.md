@@ -1,5 +1,6 @@
 # spmigration v0.2
 ### This is a commandline script for service pack migration in SUSE Manager v3.x. ###
+### Based and forked from bjin01/spmigration ###
 
 
 ## Motivation:
