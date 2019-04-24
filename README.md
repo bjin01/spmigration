@@ -21,16 +21,19 @@ _This program should give you some ideas how a such task could be automated by u
 
 * __Parameters:__ - enter your base channel label, target base channel label and group-name . See spmigration.py -h
 python spmigration.py -s <SUMA-server> -u <username> -p <password> -g patch-group1 -base asp-2018-q3-sles12-sp3-pool-x86_64 -newbase asp-2019-m03-sles12-sp4-poo
-l-x86_64  \n \
+l-x86_64 -vv \n \
 
 * __Checking system availability prior Migration start__ - Then the script will use SUSE Manager API to get a list of all systems in the named system group and then go through various checks:
-* Check the base channel matches the base channel parameter
-* Check the target base channel exists
-* Query api to check if the systems have been marked as "inactive". Inactive systems will be pulled out from the systems list.
+* __Check the systems actually have the specified base channel__
+* __Check the current base channel is not the target base channel__
+* __Check the system has subscribable base channels__
+* __Check the target base channel exists__
 * __Check remaining upgradable packages__ - at the moment the script verifies each system if it has any upgradable rpm packages. If it is the case this system will be disqualified from service pack migration and dropped out from the list.
+* Query api to check if the systems have been marked as "inactive". Inactive systems will be pulled out from the systems list.
 * __Checking salt minion online status__ - Then the script will take the matching list of systems and issue salt hostname test.ping to check if the system is online.
 * __Avoid job creation for offline systems__ - If salt test.ping is successful then a service pack migration **job** in SUSE Manager with the given target sp version will be created, for each single node.
 * For systems that are qualified for service pack migration 
+* __Confirm the systems___ Show the systems which will be migrated and ask for user confirmation before continuing
 * __Schedule Jobs in SUSE Manager__ - A job ID will be returned.
 
 
