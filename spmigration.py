@@ -21,7 +21,8 @@ This scripts runs service pack migration for given base channel.
 
 Sample command:
 
-              python spmigration.py -s bjsuma.bo2go.home -u bjin -p suse1234 -base dev-sles12-sp3-pool-x86_64 -newbase dev-sles12-sp4-pool-x86_64 -fromsp sp3 -tosp sp4 \n \
+              python spmigration.py -s bjsuma.bo2go.home -u bjin -p suse1234 -t traditional 
+              -base dev-sles12-sp3-pool-x86_64 -newbase dev-sles12-sp4-pool-x86_64 -fromsp sp3 -tosp sp4 \n \
 
 If -x is not specified the SP Migration is always a dryRun.
 Check Job status of the system if dryrun was successful before run the above command with -x specified. ''')) 
@@ -29,6 +30,7 @@ parser.add_argument("-x", "--execute_migration", action="store_true")
 parser.add_argument("-s", "--server", help="Enter your suse manager host address e.g. myserver.abd.domain",  default='localhost',  required=True)
 parser.add_argument("-u", "--username", help="Enter your suse manager loginid e.g. admin ", default='admin',  required=True)
 parser.add_argument('-p', action=Password, nargs='?', dest='password', help='Enter your password',  required=True)
+parser.add_argument("-t", "--system_type", help="Enter type of your target systems, either traditional or salt, default is salt", default='salt', required=True)
 parser.add_argument("-base", "--current_base_channel", help="Enter the current base channel label. e.g. sles12-sp3-pool-x86_64 ",  required=True)
 parser.add_argument("-newbase", "--new_base_channel", help="Enter the new base channel label. e.g. sles12-sp4-pool-x86_64 ",  required=True)
 parser.add_argument("-fromsp", "--migrate_from_servicepack", help="Enter the current service pack version e.g. sp3\n of course you can jump from sp3 to sp5 as well.",  required=True)
@@ -77,9 +79,14 @@ for server in activesystems:
             optionalChannels = getoptchannels.find_replace(previous_sp, new_sp)
             if a['label'] == base_channel and len(availpkgs) <=3 :
                 print('%s has %d upgradable packages and is qualified for sp migration.' %( server['name'],  len(availpkgs)))
-                print('\nChecking system through salt %s test.ping: \n' %(server['name']))                
-                p1 = saltping.mysalt(server['name'])
-                p1.ping() 
+
+                if "salt" in args.system_type: 
+                    print('\nChecking system through salt %s test.ping: \n' %(server['name']))                
+                    p1 = saltping.mysalt(server['name'])
+                    p1.ping()
+                else:
+                    p1.code == 0
+
                 if p1.code == 0:
                     try:
                         #print('lets see key, s, new_base_channel childchannels, dryRun',  key, s, new_base_channel, optionalChannels, dryRun)
