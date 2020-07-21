@@ -17,6 +17,8 @@ _This program should give you some ideas how a such task could be automated by u
 
 **- The user you use must have permissions to create a group in the organization in which you run this script.**
 
+__Updates from July 2020__
+added new argument ```-t``` for type of targets, either traditional or salt. If not salt then target online status will not be checked.
 
 ## Function Highlights:
 
@@ -37,9 +39,9 @@ _This program should give you some ideas how a such task could be automated by u
 
 ## Sample command: ##
 
-```suma:~/myscripts # python spmigration.py -s bjsuma.bo2go.home -u bjin -p suse1234 -base dev-sles12-sp3-pool-x86_64 -newbase dev-sles12-sp4-pool-x86_64 -fromsp sp3 -tosp sp4```
+```suma:~/myscripts # python spmigration.py -s bjsuma.bo2go.home -u bjin -p suse1234 -t traditional -base dev-sles12-sp3-pool-x86_64 -newbase dev-sles12-sp4-pool-x86_64 -fromsp sp3 -tosp sp4```
 
-If __`-x`__ is not specified the SP Migration is always a **dryRun**.
+If __`-x`__ is not specified then the SP Migration is always a **dryRun**.
 Check Job status of the system if dryrun was successful before run the above command with -x specified.
 
 ### See here for additional command arguments: ###
@@ -62,7 +64,10 @@ Check Job status of the system if dryrun was successful before run the above com
                         
   -p [PASSWORD]         Enter your password
   
-  
+ -t SYSTEM_TYPE, --system_type SYSTEM_TYPE
+  Enter type of your target systems, either traditional
+  or salt, default is salt
+
   -base CURRENT_BASE_CHANNEL, --current_base_channel CURRENT_BASE_CHANNEL
   
   Enter the current base channel label. e.g. sles12-sp3-pool-x86_64
