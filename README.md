@@ -1,7 +1,8 @@
 # spmigration v0.1
 ### This is a commandline script for service pack migration in SUSE Manager v3.x. ###
 
-
+## Updates:
+For SUSE Manager 4.3 please use the new spmigration script because the api method name has been changed. ![spmigrationv4-3.py](./spmigrationv4-3.py)
 ## Motivation:
 __SUSE Manager is the best Patch and Configuration Management Tool for Linux Systems, mainly for SLES but also supports RHEL, CentOS, Ubuntu, OpenSUSE, Containers and more will come. The reason for me to write something for Service Pack Migration is due to the fact that Service Pack Migration for SLES systems can only be done by mouse clicks in the web UI or using spacecmd command which is quite longly if you have a maintenance window and need to run SP Migration for hundreds of SLES systems.__
 
