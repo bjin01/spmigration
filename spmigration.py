@@ -22,7 +22,7 @@ This scripts runs service pack migration for given base channel.
 
 Sample command:
 
-              python spmigration.py -s bjsuma.bo2go.home -u bjin -p suse1234 -t traditional 
+              python3.6 spmigration.py -s bjsuma.bo2go.home -u bjin -p suse1234 -t traditional 
               -base dev-sles12-sp3-pool-x86_64 -newbase dev-sles12-sp4-pool-x86_64 -fromsp sp3 -tosp sp4 \n \
 
 If -x is not specified the SP Migration is always a dryRun.
