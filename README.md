@@ -1,12 +1,7 @@
-# spmigration v0.1
+# spmigration v0.2
 ### This is a commandline script for service pack migration in SUSE Manager v3.x. ###
 
-## Updates:
-For SUSE Manager 4.3 a new spmigration script has been created which includes below bugfixes. 
-* in SUSE Manager 4.3 the api method name changed to "scheduleProductMigration"
-* in SUSE Manager 4.3 the booleandryRun value has been changed from "1" to "True" and "0" to "False".
-* using ```from xmlrpc.client import ServerProxy, DateTime```
-New script is ![spmigrationv4-3.py](./spmigrationv4-3.py)
+
 
 ## Motivation:
 __SUSE Manager is the best Patch and Configuration Management Tool for Linux Systems, mainly for SLES but also supports RHEL, CentOS, Ubuntu, OpenSUSE, Containers and more will come. The reason for me to write something for Service Pack Migration is due to the fact that Service Pack Migration for SLES systems can only be done by mouse clicks in the web UI or using spacecmd command which is quite longly if you have a maintenance window and need to run SP Migration for hundreds of SLES systems.__
@@ -19,9 +14,16 @@ _This program should give you some ideas how a such task could be automated by u
 
 **- The channel label need to consist "-sp1" "-sp2" "-sp3" "-sp4" or "-ga" etc.**
 
-**- The script has been tested with Python 2.7.13 with SUSE Manager 3.2.4**
+**- The script has been tested with Python 3.6 with SUSE Manager 4.2 and 4.3**
 
 **- The user you use must have permissions to create a group in the organization in which you run this script.**
+
+__Updates from Oct 2022__
+For SUSE Manager 4.3 a new spmigration script has been created which includes below bugfixes. 
+* in SUSE Manager 4.3 the api method name changed to "scheduleProductMigration"
+* in SUSE Manager 4.3 the booleandryRun value has been changed from "1" to "True" and "0" to "False".
+* using ```from xmlrpc.client import ServerProxy, DateTime```
+New script is ![spmigrationv4-3.py](./spmigrationv4-3.py)
 
 __Updates from July 2020__
 added new argument ```-t``` for type of targets, either traditional or salt. If not salt then target online status will not be checked.
