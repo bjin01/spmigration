@@ -6,7 +6,7 @@ class verifyChannels:
         
     def Channels(self,  client,  key,  channelname):
         migrate_f_channel = client.channel.software.getDetails(key, channelname)
-        for key,value in migrate_f_channel.iteritems():
+        for key,value in migrate_f_channel.items():
             if type(value) is dict:
                 verifyChannels.Channels(value)
                 #print(value)

@@ -2,7 +2,7 @@
 import argparse,  getpass,  textwrap
 from xmlrpc.client import ServerProxy, DateTime
 from mymodules import saltping
-from datetime import datetime
+import datetime
 from mymodules import checkactivesystems
 from mymodules import newoptchannels
 from mymodules import createGroup
@@ -38,22 +38,22 @@ parser.add_argument("-fromsp", "--migrate_from_servicepack", help="Enter the cur
 parser.add_argument("-tosp", "--migrate_to_servicepack", help="Enter the target service pack version e.g. sp4\n of course you can jump from sp3 to sp5 as well.",  required=True)
 args = parser.parse_args()
 
-MANAGER_URL = "http://"+ args.server+"/rpc/api"
+SUMA = "http://"+ args.server+"/rpc/api"
 MANAGER_LOGIN = args.username
 MANAGER_PASSWORD = args.password
 
 
-SUMA = "http://" + MANAGER_LOGIN + ":" + MANAGER_PASSWORD + "@" + MANAGER_URL + "/rpc/api"
+
 with ServerProxy(SUMA) as client:
     key = client.auth.login(MANAGER_LOGIN, MANAGER_PASSWORD)
 
-today = datetime.today()
-earliest_occurrence = DateTime(today)
+nowlater = datetime.datetime.now()
+earliest_occurrence = DateTime(nowlater)
 
 if args.execute_migration:
-    dryRun = 0
+    dryRun = False
 else:
-    dryRun = 1
+    dryRun = True
 
 L = []
 migrationsystems = []
@@ -93,15 +93,17 @@ for server in activesystems:
                     p1.code == 0
 
                 if p1.code == 0:
+
+                    
                     try:
-                        #print('lets see key, s, new_base_channel childchannels, dryRun',  key, s, new_base_channel, optionalChannels, dryRun)
+                        #print('lets see key, s, new_base_channel childchannels, dryRun, earliest_occurrence',  key, s, new_base_channel, optionalChannels, dryRun, earliest_occurrence)
                         spjob = client.system.scheduleProductMigration(key, s,  new_base_channel,  optionalChannels,  dryRun,  earliest_occurrence)
                         print('A new job has been scheduled with id: %d' %(spjob))
                         migrationsystems.append(s)
                     except:
                         print('something went wrong with system while scheduling job with client.system.scheduleProductMigration %s'%(server['name']))
             elif a['label'] == base_channel:
-                print('\033[1;31;40m%s The system need to be updated prior Product Migration. It still has upgradable pkgs: %d \033[1;32;40m'%(server['name'], len(availpkgs)))
+                print('\033[91m%s The system need to be updated prior Product Migration. It still has upgradable pkgs: %d \033[00m'%(server['name'], len(availpkgs)))
 
 if migrationsystems:
     mygroup.addSystemsToGroup(migrationsystems)

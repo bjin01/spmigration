@@ -38,12 +38,11 @@ parser.add_argument("-fromsp", "--migrate_from_servicepack", help="Enter the cur
 parser.add_argument("-tosp", "--migrate_to_servicepack", help="Enter the target service pack version e.g. sp4\n of course you can jump from sp3 to sp5 as well.",  required=True)
 args = parser.parse_args()
 
-MANAGER_URL = "http://"+ args.server+"/rpc/api"
+SUMA = "http://"+ args.server+"/rpc/api"
 MANAGER_LOGIN = args.username
 MANAGER_PASSWORD = args.password
 
 
-SUMA = "http://" + MANAGER_LOGIN + ":" + MANAGER_PASSWORD + "@" + MANAGER_URL + "/rpc/api"
 with ServerProxy(SUMA) as client:
     key = client.auth.login(MANAGER_LOGIN, MANAGER_PASSWORD)
 
