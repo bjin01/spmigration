@@ -1,5 +1,4 @@
 #!/usr/bin/python
-import xmlrpclib
 
 class myGroup:
     
@@ -13,7 +12,7 @@ class myGroup:
         self.description = 'This is a temp group created by spmigration.py script for service pack migration automation. Just for information. Feel free to delete it.'
         try:
             self.session_client.systemgroup.create(self.session_key, self.groupname, self.description)
-        except xmlrpclib.Fault:
+        except:
             print('group exists already!.')
             
     def addSystemsToGroup(self,  systemlist):
