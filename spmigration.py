@@ -94,7 +94,7 @@ for server in activesystems:
                 if p1.code == 0:
                     try:
                         #print('lets see key, s, new_base_channel childchannels, dryRun',  key, s, new_base_channel, optionalChannels, dryRun)
-                        spjob = client.system.scheduleProductMigration(key, s,  new_base_channel,  optionalChannels,  dryRun,  earliest_occurrence)
+                        spjob = client.system.scheduleSPMigration(key, s,  new_base_channel,  optionalChannels,  dryRun,  earliest_occurrence)
                         print('A new job has been scheduled with id: %d' %(spjob))
                         migrationsystems.append(s)
                     except:
