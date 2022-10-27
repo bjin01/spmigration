@@ -1,5 +1,6 @@
 #!/usr/bin/python
-import xmlrpclib,  argparse,  getpass,  textwrap
+import argparse,  getpass,  textwrap
+from xmlrpc.client import ServerProxy, DateTime
 from mymodules import saltping
 from datetime import datetime
 from mymodules import checkactivesystems
@@ -40,10 +41,14 @@ args = parser.parse_args()
 MANAGER_URL = "http://"+ args.server+"/rpc/api"
 MANAGER_LOGIN = args.username
 MANAGER_PASSWORD = args.password
-client = xmlrpclib.Server(MANAGER_URL, verbose=0)
-key = client.auth.login(MANAGER_LOGIN, MANAGER_PASSWORD)
+
+
+SUMA = "http://" + MANAGER_LOGIN + ":" + MANAGER_PASSWORD + "@" + MANAGER_URL + "/rpc/api"
+with ServerProxy(SUMA) as client:
+    key = client.auth.login(MANAGER_LOGIN, MANAGER_PASSWORD)
+
 today = datetime.today()
-earliest_occurrence = xmlrpclib.DateTime(today)
+earliest_occurrence = DateTime(today)
 
 if args.execute_migration:
     dryRun = 0
@@ -90,7 +95,7 @@ for server in activesystems:
                 if p1.code == 0:
                     try:
                         #print('lets see key, s, new_base_channel childchannels, dryRun',  key, s, new_base_channel, optionalChannels, dryRun)
-                        spjob = client.system.scheduleSPMigration(key, s,  new_base_channel,  optionalChannels,  dryRun,  earliest_occurrence)
+                        spjob = client.system.scheduleProductMigration(key, s,  new_base_channel,  optionalChannels,  dryRun,  earliest_occurrence)
                         print('A new job has been scheduled with id: %d' %(spjob))
                         migrationsystems.append(s)
                     except:
