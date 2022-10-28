@@ -63,6 +63,7 @@ nChannel = args.new_base_channel
 base_channel = vChannels.Channels(client,key,bChannel)
 new_base_channel = vChannels.Channels(client,key,nChannel)
 
+
 previous_sp = args.migrate_from_servicepack
 new_sp = args.migrate_to_servicepack
 
@@ -76,13 +77,17 @@ for server in activesystems:
     s = server.get('id')
     basech_name = client.system.listSubscribableBaseChannels(key, s)
     availpkgs = client.system.listLatestUpgradablePackages(key,  s)
+    print("{} availpkgs {}".format(server.get('name'),len(availpkgs)))
 
     for a in basech_name:
-       if a['current_base'] == 1:
+       if new_base_channel in a["label"]:
+            #print("subscriblable basechannel {}".format(a['label']))
             L.append(a['name'])
             getoptchannels = newoptchannels.getnew_optionalChannels(client, key, s)
+            #print("getoptchannels are {}".format(getoptchannels))
             optionalChannels = getoptchannels.find_replace(previous_sp, new_sp)
-            if a['label'] == base_channel and len(availpkgs) <=3 :
+            #print("optionalChannels are {}".format(optionalChannels))
+            if a['label'] in new_base_channel and len(availpkgs) <=3 :
                 print('%s has %d upgradable packages and is qualified for sp migration.' %( server['name'],  len(availpkgs)))
 
                 if "salt" in args.system_type: 
@@ -93,7 +98,6 @@ for server in activesystems:
                     p1.code == 0
 
                 if p1.code == 0:
-
                     
                     try:
                         #print('lets see key, s, new_base_channel childchannels, dryRun, earliest_occurrence',  key, s, new_base_channel, optionalChannels, dryRun, earliest_occurrence)
@@ -102,8 +106,11 @@ for server in activesystems:
                         migrationsystems.append(s)
                     except:
                         print('something went wrong with system while scheduling job with client.system.scheduleProductMigration %s'%(server['name']))
-            elif a['label'] == base_channel:
-                print('\033[91m%s The system need to be updated prior Product Migration. It still has upgradable pkgs: %d \033[00m'%(server['name'], len(availpkgs)))
+            else:
+                if len(availpkgs) >= 3:
+                    print('\033[91m%s The system need to be updated prior Product Migration. It still has upgradable pkgs: %d \033[00m'%(server['name'], len(availpkgs)))
+                else:
+                    print("a['label'] == base_channel {}, basechannel {}".format(base_channel, base_channel))
 
 if migrationsystems:
     mygroup.addSystemsToGroup(migrationsystems)

@@ -7,23 +7,27 @@ class getnew_optionalChannels:
         self.optionalChannels = []
         self.serverid = serverid
         childchannels = self.suma_client.system.listSubscribedChildChannels(self.suma_key,  self.serverid)
+        #print('The new subscribed child channels are: %s'%(childchannels))
         for u in childchannels:
+            #print("u is channel label {}".format(u['label']))
             self.optionalChannels.append(u['label'])
+        
         #print('The old child channels are: %s'%(self.optionalChannels))
     
     def find_replace(self, oldsp, newsp):
         self.oldsp = oldsp
         self.newsp = newsp
-        spvalue = ['-' + self.oldsp, '-' + self.newsp]
+        spvalue = [self.oldsp, self.newsp]
         newoptionChannels = []
         # define a functions that takes a dict and a dict for find replace values
         #print('the old value is %s and the new value is %s'%(spvalue[0],  spvalue[1]))
         for item in self.optionalChannels:
-            if item != None and oldsp in item:
+            #print("item  in find_replace {}".format(item))
+            if oldsp in item:
                 newval = item.replace(spvalue[0], spvalue[1])
                 newoptionChannels.append(newval)
             else:
-                print("found channel label without oldsp {}".format(item))
+                #print("found channel label without oldsp {}".format(item))
                 newoptionChannels.append(item)
         #print('the new child channels are: ',  newoptionChannels)
         return newoptionChannels

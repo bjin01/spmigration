@@ -11,7 +11,7 @@ class verifyChannels:
                 verifyChannels.Channels(value)
                 #print(value)
             else:
-                #print ("{0}: {1}".format(key, value))
+                #print ("key {0}: value {1}".format(key, value))
                 if key == 'label' and value == channelname:
                     #print('match gefunden')
                     return value
