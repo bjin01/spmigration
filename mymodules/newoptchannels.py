@@ -19,7 +19,12 @@ class getnew_optionalChannels:
         # define a functions that takes a dict and a dict for find replace values
         #print('the old value is %s and the new value is %s'%(spvalue[0],  spvalue[1]))
         for item in self.optionalChannels:
-            newval = item.replace(spvalue[0], spvalue[1])
-            newoptionChannels.append(newval)
-        return newoptionChannels
+            if item != None and oldsp in item:
+                newval = item.replace(spvalue[0], spvalue[1])
+                newoptionChannels.append(newval)
+            else:
+                print("found channel label without oldsp {}".format(item))
+                newoptionChannels.append(item)
         #print('the new child channels are: ',  newoptionChannels)
+        return newoptionChannels
+        
